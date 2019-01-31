@@ -28,6 +28,7 @@ export default class Product extends Component {
                 disabled={inCart?true:false} 
                 onClick={()=>{
                   value.addToCart(id);
+                  value.openModal(id);
                 }}>
                 {inCart?(
                   <p 
@@ -68,7 +69,7 @@ Product.propTypes={
 }
 
 
-const ProductWrapper=styled.div`
+export const ProductWrapper=styled.div`
   .card{
     border-color:transparent;
     transition:all 1s linear;

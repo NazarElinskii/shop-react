@@ -9,7 +9,13 @@ class ProductProvider extends Component {
   state={
     products:[],
     detailProduct:detailProduct,
-    cart:[]
+    cart:[],
+    modalOpen:false,
+    modalProduct:detailProduct,
+    cartSubTotal:0,//price
+    cartTax:0,
+    cartTotal:0
+
   };
 
   componentDidMount(){
@@ -59,16 +65,56 @@ class ProductProvider extends Component {
     },()=>{console.log(this.state)})
   }
 
+  openModal=(id)=>{
+    const product = this.getItem(id);
+    this.setState(()=>{
+      return {
+        modalProduct:product,
+        modalOpen:true
+      }
+    })
+  }
+
+  closeModal=()=>{
+    this.setState(()=>{
+      return {
+        modalOpen:false
+      }
+    })
+  }
+
+  inc=(id)=>{
+    console.log('increm');
+  }
+  
+  dec=(id)=>{
+    console.log('decrem');
+  }
+
+  removeItem=(id)=>{
+    console.log('rem');
+  }
+
+  clearCart=(id)=>{
+    console.log('cart was cleared')
+  }
+
   render() {
     return (
       <ProductContext.Provider value={{
         ...this.state,//берем все свойства из state={...}
         handleDetail:this.handleDetail,
-        addToCart:this.addToCart
+        addToCart:this.addToCart,
+        openModal:this.openModal,
+        closeModal:this.closeModal,
+        inc:this.inc,
+        dec:this.dec,
+        removeItem:this.removeItem,
+        clearCart:this.clearCart
+
       }}>
         {this.props.children}
       </ProductContext.Provider>
-
     )
   }
 }
